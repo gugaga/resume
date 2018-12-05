@@ -92,6 +92,8 @@ dl,dd,dt,ol,li{
     max-width:940px;
     margin: 0 auto;
     background-color:#fff;
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,0.5);
+    border-radius:3px;
 }
 .userCard .pictureAndText{
     padding:50px;
@@ -204,27 +206,96 @@ body main .selfIntroduction{
     font-size:18px;
 }
 
-
-/* section .skills{
+section.skills,section.portfolio{
     max-width:940px;
     margin:0 auto;
     margin-top:50px;
-    text-align:center;
-} */
-/* section .skills h2{
+} 
+section.skills h2,section.portfolio h2{
     color:#3d4451;
     font-weight:bold;
-    font-size:34px;
+    font-size:34px; 
+    line-height:1.2;
+    text-align: center;
 }
-section .skill ol{
+section.skills ol{
     margin-top:30px;
-} */
-
-section .skills{
-    max-width:940px;
-    text-align:center;
-    border:1px solid green;
+    background:white;
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,0.5);
+    padding:42px 50px 10px;
 }
-section .skills{
-    border:1px solid purple;
+section.skills .progressBar{
+    height:3px;
+    background: #fae1e1;
+    border-radius:3px;
+    margin:4px 0 40px;
+}
+section.skills .progressBar .progress{
+    height:100%;
+    background:#e6686a;
+    width:70%;
+    
+}
+section.skills ol li{
+    float:left;
+    width:47%;
+}
+section.skills ol li:nth-child(even){
+    float:right;
+}
+section.portfolio{
+    text-align: center;
+    margin-bottom:100px;
+}
+section.portfolio nav{
+    text-align:center;
+    display: inline-block;
+    vertical-align:top;
+    margin-top:32px;
+}
+section.portfolio nav ol{
+    display:inline-block;
+    vertical-align:top;
+
+}
+section.portfolio nav ol li{
+    float:left;
+    margin-left:40px;
+    cursor:pointer;
+}
+section.portfolio nav ol li:nth-child(1){
+    margin-left:0;
+}
+section.portfolio nav .bar{
+    background:white;
+    height:5px;
+    margin-top:5px;
+    border-radius:2px;
+    margin-bottom:28px;       
+}
+section.portfolio nav .bar_inner{
+    background:#e6686a;
+    height:100%;
+    border-radius:2px;
+    transition: all 0.3s;
+}
+
+section.portfolio nav .bar.state-1 .bar_inner{
+    margin-left:0;
+    width:36px;
+}
+section.portfolio nav .bar.state-2 .bar_inner{
+    margin-left:67px;
+    width:50px;
+}
+section.portfolio nav .bar.state-3 .bar_inner{
+    margin-left:144px;
+    width:70px;
+}
+
+section.portfolio .jobs{
+    position:relative;
+}
+section.portfolio .jobs>.big,section.portfolio .jobs>.small{
+    position:absolute;
 }
