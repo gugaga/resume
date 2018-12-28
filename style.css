@@ -4,6 +4,10 @@ body,p,ul,li,h1,h2,h3,h4,h5,h6,dl,dd,dt,ul,li,ol{
     padding:0;
 }
 /*inherit 是继承  a继承父元素 如果父元素没有 就继承祖先元素*/
+
+[data-x].active{
+    border:10px solid purple;
+}
 a{
     color:inherit;
     /* color:red; */

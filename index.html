@@ -76,7 +76,7 @@
         <div class="mark"></div>
     </div>
     <main>
-        <div class="userCard" id="siteAbout">
+        <div data-x class="userCard" id="siteAbout">
             <div class="pictureAndText clearfix">
                 <div class="picture">
                     <img src="./img/startuper-hover.jpg" alt="头像">
@@ -136,7 +136,7 @@
         </p>
     </main>
 
-    <section class="skills" id="siteSkills">
+    <section data-x class="skills" id="siteSkills">
         <h2>技能</h2>
         <ol class="clearfix">
             <li>
@@ -177,7 +177,7 @@
             </li>
         </ol>
     </section>
-    <section class="portfolio" id="siteWorks">
+    <section data-x class="portfolio" id="siteWorks">
         <h2>作品集</h2>
         <nav>
             <ol class="clearfix">
@@ -201,7 +201,7 @@
            </div>
        </div>
     </section>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.1.1/Tween.min.js"></script>
     <script src="//at.alicdn.com/t/font_947093_kruy7656ya.js"></script>
     <script src="js.js"></script> 
     <script>
@@ -215,7 +215,32 @@
             }else{
                 topNavBar.classList.remove("sticky");
             }
+
+            let specticalTags = document.querySelectorAll('[data-x]');
+            let  minIndex = 0;
+            for(let i = 0;i<specticalTags.length;i++){
+                if(Math.abs(specticalTags[i].offsetTop-window.scrollY) < Math.abs(specticalTags[minIndex].offsetTop-window.scrollY)){
+                    minIndex = i;
+                };
+            }
+            console.log(minIndex);
+
+            for(let i = 0;i<specticalTags.length;i++){
+                specticalTags[i].classList.remove('active');
+            }
+            specticalTags[minIndex].classList.add("active");
+
+            let id = specticalTags[minIndex].id;
+            let a = document.querySelector('a[href="#'+ id + '"]');
+            let li = a.parentNode;
+            let brothersAndMe = li.parentNode.children;
+            for(let i=0; i<brothersAndMe.length; i++){
+                brothersAndMe[i].classList.remove('active')
+            }
+            li.classList.add('active')
         }
+
+        
 
         var liTags = document.querySelectorAll("nav.menu ul li ");
         for(let i = 0;i<liTags.length;i++){
@@ -229,6 +254,13 @@
         }
 
         let aTags = document.querySelectorAll('nav > ul > li > a'); 
+
+        function animate(time) {
+            requestAnimationFrame(animate);
+            TWEEN.update(time);
+        }
+        requestAnimationFrame(animate);
+
         for(var i = 0;i < aTags.length; i++){
             aTags[i].onclick = function(event){
                 event.preventDefault();
@@ -238,7 +270,37 @@
                 let element = document.querySelector(href);
                 console.log(element);
                 let top = element.offsetTop;
-                window.scrollTo(0,top-70);
+
+                // let n = 25;
+                // let duration = 500 / n;
+                // let currentTop = window.scrollY;
+                // let targetTop = top - 70;
+                // let distance = (targetTop -currentTop) /n;
+                // let i = 0;
+                // let id = setInterval(() =>{
+                //     if(i=== n){
+                //         window.clearInterval(id);
+                //         return;
+                //     }
+                //     i = i + 1;
+                //     window.scrollTo(0,currentTop + distance * i);
+                // },duration);
+
+                let currentTop = window.scrollY;
+                let targetTop = top - 70;
+                let s = targetTop - currentTop;
+                var coords = {y:currentTop};
+                var t = Math.abs((s/100) * 300);
+                if(t>500){
+                    t = 500;
+                }
+                var tween = new TWEEN.Tween(coords)
+                .to({y: targetTop},t)
+                .easing(TWEEN.Easing.Quadratic.InOut)
+                .onUpdate(function(){
+                    window.scrollTo(0,coords.y);
+                })
+                .start();
             }
         }
     </script>
