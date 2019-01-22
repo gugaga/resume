@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="./loadding.css">
+    <!-- <link rel="stylesheet" href="./loadding.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/css/swiper.min.css">
     <link rel="stylesheet" href="./style.css">
     <style type="text/css">
@@ -14,30 +14,10 @@
            vertical-align: -0.15em;
            fill: currentColor;
            overflow: hidden;
-           /* background:black; */
-        }
-        .site-welcome{
-            display:none;
-            width:100%;
-            height:100%;
-            position:fixed;
-            top:0;
-            left:0;
-            background:gray;
-            z-index:1;
-            justify-content: center;
-            align-items: center;
-        }
-        .site-welcome.active{
-            display:flex;
         }
     </style>
 </head>
 <body>
-    <div class="site-welcome active" id="siteWelcome">
-        <div class="loadding"></div>
-    </div>
-   
     <div class="topNavBar" id="topNavBar">
        <div class="topNavBar_inner clearfix">
             <a class="logo" href="#" alt="logo">
@@ -178,7 +158,7 @@
             </li>
         </ol>
     </section>
-    <section data-x class="portfolio active" id="siteWorks">
+    <section data-x class="portfolio" id="siteWorks">
         <h2>作品集</h2>
         <div id="mySlides">
             <div class="swiper-container">
@@ -193,135 +173,18 @@
               <div class="swiper-pagination"></div>
       
               <!-- If we need navigation buttons -->
-              <div class="swiper-button-prev"></div>
-              <div class="swiper-button-next"></div>
-            </div>
+             
+            </div> 
             <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-            
+            <div class="swiper-button-next"></div>          
           </div>  
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.1.1/Tween.min.js"></script>
     <script src="node_modules/swiper/dist/js/swiper.min.js"></script>
     <script src="//at.alicdn.com/t/font_947093_kruy7656ya.js"></script>
-    <script src="js.js"></script> 
-    <script>
-        setTimeout(function(){
-            siteWelcome.classList.remove("active");
-        },1000)
-        
-        window.onscroll = function(event){
-            if(window.scrollY > 0){
-                topNavBar.classList.add("sticky");
-            }else{
-                topNavBar.classList.remove("sticky");
-            }
-
-            let specticalTags = document.querySelectorAll('[data-x]');
-            let  minIndex = 0;
-            for(let i = 0;i<specticalTags.length;i++){
-                if(Math.abs(specticalTags[i].offsetTop-window.scrollY) < Math.abs(specticalTags[minIndex].offsetTop-window.scrollY)){
-                    minIndex = i;
-                };
-            }
-            console.log(minIndex);
-
-            for(let i = 0;i<specticalTags.length;i++){
-                specticalTags[i].classList.remove('active');
-            }
-            specticalTags[minIndex].classList.add("active");
-
-            let id = specticalTags[minIndex].id;
-            let a = document.querySelector('a[href="#'+ id + '"]');
-            let li = a.parentNode;
-            let brothersAndMe = li.parentNode.children;
-            for(let i=0; i<brothersAndMe.length; i++){
-                brothersAndMe[i].classList.remove('active')
-            }
-            li.classList.add('active')
-        }
-
-        
-
-        var liTags = document.querySelectorAll("nav.menu ul li ");
-        for(let i = 0;i<liTags.length;i++){
-            liTags[i].onmouseenter = function(event){
-                event.currentTarget.classList.add("active");     
-                
-            }
-            liTags[i].onmouseleave = function(){
-                event.currentTarget.classList.remove("active");
-            }
-        }
-
-        let aTags = document.querySelectorAll('nav > ul > li > a'); 
-
-        function animate(time) {
-            requestAnimationFrame(animate);
-            TWEEN.update(time);
-        }
-        requestAnimationFrame(animate);
-
-        for(var i = 0;i < aTags.length; i++){
-            aTags[i].onclick = function(event){
-                event.preventDefault();
-
-                let a = event.currentTarget;
-                let href = a.getAttribute('href');
-                let element = document.querySelector(href);
-                console.log(element);
-                let top = element.offsetTop;
-
-                // let n = 25;
-                // let duration = 500 / n;
-                // let currentTop = window.scrollY;
-                // let targetTop = top - 70;
-                // let distance = (targetTop -currentTop) /n;
-                // let i = 0;
-                // let id = setInterval(() =>{
-                //     if(i=== n){
-                //         window.clearInterval(id);
-                //         return;
-                //     }
-                //     i = i + 1;
-                //     window.scrollTo(0,currentTop + distance * i);
-                // },duration);
-
-                let currentTop = window.scrollY;
-                let targetTop = top - 70;
-                let s = targetTop - currentTop;
-                var coords = {y:currentTop};
-                var t = Math.abs((s/100) * 300);
-                if(t>500){
-                    t = 500;
-                }
-                var tween = new TWEEN.Tween(coords)
-                .to({y: targetTop},t)
-                .easing(TWEEN.Easing.Quadratic.InOut)
-                .onUpdate(function(){
-                    window.scrollTo(0,coords.y);
-                })
-                .start();
-            }
-        }
-    </script>
-
-    <script>
-        console.log(window.Swiper);
-        var mySwiper = new Swiper ('.swiper-container', {
-        loop: true, // 循环模式选项
-        
-        // 如果需要分页器
-        pagination: {
-        el: '.swiper-pagination',
-        },
-        
-        // 如果需要前进后退按钮
-        navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-        }
-    }) 
-    </script>
+    <script src="./js/swiper.js"></script>
+    <script src="./js/auto-slide-up.js"></script>
+    <script src="./js/sticky-topBar.js"></script> 
+    <script src="./js/smoothly-navgation.js"></script>
 </body>
 </html>
